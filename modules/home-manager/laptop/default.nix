@@ -239,7 +239,7 @@ in
 
     programs.git = {
       enable = true;
-      userEmail = "shieldscoen@gmail.com";
+      userEmail = "kmzheng01@bvsd.org";
       userName = user;
     };
     # Random files
