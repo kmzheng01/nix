@@ -92,15 +92,13 @@ in
       # '')
 
       # Apps
-      gimp
       spotify
       #  audacity
       qFlipper
       prismlauncher
       firefox-devedition
       #   android-studio
-      element-desktop
-      armcord
+      vesktop
       #   pathplanner
       zoom-us
 
@@ -158,7 +156,7 @@ in
 
       # Game utils
       #    lutris
-      wineWowPackages.waylandFull
+      #wineWowPackages.waylandFull
       #   gamescope    
       winetricks
       mangohud

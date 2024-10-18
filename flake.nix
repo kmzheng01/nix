@@ -84,7 +84,7 @@
     }@inputs:
     let
       system = "x86_64-linux";
-      user = "totaltaxamount";
+      user = "kmzheng01";
     in
     {
       homeConfigurations = import ./outputs/home.nix { inherit inputs system user; };

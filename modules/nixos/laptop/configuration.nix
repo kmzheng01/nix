@@ -19,8 +19,6 @@ in
   imports = [
     # Include the results of the hardware scan.
     ./hardware.nix
-    ./wireguard
-    ./vfio
     inputs.sops-nix.nixosModules.default
   ];
 
@@ -34,7 +32,6 @@ in
   # Configure  X11
   services.xserver = {
     enable = true;
-    videoDrivers = lib.mkDefault [ "nvidia" ];
 
     displayManager.gdm = {
       enable = true;
@@ -66,29 +63,12 @@ in
 
       extraPackages = with pkgs; [
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
-        vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-        vaapiVdpau
-        libvdpau-va-gl
+         # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+       
       ];
     };
 
     flipperzero.enable = true;
-
-    nvidia = {
-      modesetting.enable = lib.mkDefault true;
-      powerManagement = {
-        enable = lib.mkDefault true;
-      };
-      open = false;
-      nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
-      prime = {
-        offload.enable = true;
-        offload.enableOffloadCmd = true;
-        nvidiaBusId = "PCI:1:0:0";
-        amdgpuBusId = "PCI:65:0:0";
-      };
-    };
 
     xpadneo.enable = true;
     steam-hardware.enable = true;
@@ -98,19 +78,6 @@ in
   #   enable = true;
   #   motherboard = "amd";
   # };
-
-  sops = {
-    defaultSopsFile = ./secrets/secrets.yml;
-
-    age = {
-      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-      keyFile = "/var/lib/sops-nix/key.txt";
-      generateKey = true;
-    };
-
-    # Secrets
-    secrets."wireguard/private_key" = { };
-  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
 
@@ -147,7 +114,7 @@ in
 
   programs.coolercontrol = {
     enable = true;
-    nvidiaSupport = true;
+    #nvidiaSupport = true;
   };
 
   services.avahi = {
@@ -162,7 +129,7 @@ in
 
   services.hardware.openrgb = {
     enable = true;
-    motherboard = "amd";
+    motherboard = "intel";
   };
 
   networking = {
